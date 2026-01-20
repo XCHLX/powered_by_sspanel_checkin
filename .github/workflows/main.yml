@@ -37,9 +37,7 @@ jobs:
 
       - name: Run checkin script
         env:
-          URL: ${{ secrets.URL }}
+          URL: ${{ secrets.URLS }}
           SCKEY: ${{ secrets.SCKEY }}
-          EMAIL: ${{ secrets.EMAIL }}
-          PASSWD: ${{ secrets.PASSWD }}
           CONFIG: ${{ secrets.CONFIG }}
         run: python main.py
