@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import requests, json, re, os
-# 机场的地址
-url = os.environ.get('URLS')
-# 配置用户名（一般是邮箱）
-=======
 import requests, json, re, os ,time, hmac, hashlib,base64
 from urllib.parse import urlparse
 from datetime import datetime
@@ -14,7 +8,6 @@ from urllib.parse import quote_plus
 # 账号11
 # 密码11
 # 账号22
->>>>>>> release/2026年1月22日
 
 # https://ikuuu.de
 # 账号1
