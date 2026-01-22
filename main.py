@@ -19,8 +19,8 @@ config = os.environ.get('CONFIG')
 # server酱
 SCKEY = os.environ.get('SCKEY')
 # webhook: str, secret:
-DingDingWebHook = os.environ.get('DingDingWebHook')
-DingDingSecret = os.environ.get('DingDingSecret')
+DingDingWebHook = os.environ.get('DINGDINGWEBHOOK')
+DingDingSecret = os.environ.get('DINGDINGSECRET')
 accountObject = []
 # 平台 URL 对应表
 platform_urls = {

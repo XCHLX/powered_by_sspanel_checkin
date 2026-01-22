@@ -39,6 +39,6 @@ jobs:
         env:
           SCKEY: ${{ secrets.SCKEY }}
           CONFIG: ${{ secrets.CONFIG }}
-          DingDingWebHook: ${{ secrets.DingDingWebHook }}
-          DingDingSecret: ${{ secrets.DingDingSecret }}
+          DINGDINGWEBHOOK: ${{ secrets.DINGDINGWEBHOOK }}
+          DINGDINGSECRET: ${{ secrets.DINGDINGSECRET }}
         run: python main.py
