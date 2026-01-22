@@ -37,7 +37,8 @@ jobs:
 
       - name: Run checkin script
         env:
-          URLS: ${{ secrets.URLS }}
           SCKEY: ${{ secrets.SCKEY }}
           CONFIG: ${{ secrets.CONFIG }}
+          DingDingWebHook: ${{ secrets.DingDingWebHook }}
+          DingDingSecret: ${{ secrets.DingDingSecret }}
         run: python main.py
