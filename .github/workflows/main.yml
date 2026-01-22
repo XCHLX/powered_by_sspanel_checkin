@@ -1,14 +1,14 @@
-name: "Common Airport Checkin"
+name: 'Common Airport Checkin'
 
 on:
   schedule:
-    # UTC 14:00 = UTC+8 22:00
-    - cron: "0 14 * * *"
+    # UTC 22:00 = UTC+8 06:00
+    - cron: '0 22 * * *' # scheduled at 06:00 (UTC+8) everyday
   workflow_dispatch:
 
 env:
   RUN_ENV: prod
-  PYTHONUNBUFFERED: "1"
+  PYTHONUNBUFFERED: '1'
 
 jobs:
   checkin:
@@ -23,8 +23,8 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
-          cache: "pip"
+          python-version: '3.10'
+          cache: 'pip'
 
       - name: Random delay (schedule only)
         if: github.event_name == 'schedule'
