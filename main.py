@@ -235,14 +235,18 @@ def send_dingtalk_md(webhook: str, secret: str, title: str, text: str, at_mobile
 
 def push(content):
     if SCKEY :
-        url = "https://sctapi.ftqq.com/{}.send?title={}&desp={}".format(SCKEY, 'ikuuu签到', content)
-        requests.post(url)
+        # url = "https://sctapi.ftqq.com/{}.send?title={}&desp={}".format(SCKEY, 'ikuuu签到', content)
+        url = f"https://sctapi.ftqq.com/{SCKEY}.send"
+        data = {
+            "title": "签到结果",
+            "desp": content  # Markdown 原样传
+        }
+        resp = requests.post(url, data=data, timeout=10)
+        # requests.post(url)
         print('Server酱推送完成')
-    elif DingDingWebHook:
+    if DingDingWebHook :
         send_dingtalk_md(DingDingWebHook,DingDingSecret,'签到结果',content)
         print('钉钉推送完成')
-    else:
-        print('未使用消息推送推送！')
 
 if __name__ == '__main__':
     data = accounts_parse(config)
