@@ -4,12 +4,12 @@ from datetime import datetime
 from urllib.parse import quote_plus
 # 机场的地址 用户名 密码
 # config ='''
-# http://www.dabai.in
+# http://www.wh1.in
 # 账号11
 # 密码11
 # 账号22
 
-# https://ikuuu.de
+# https://wh2.de
 # 账号1
 # 密码1
 # 账号2
