@@ -9,6 +9,7 @@ on:
 env:
   RUN_ENV: prod
   PYTHONUNBUFFERED: '1'
+  TZ: Asia/Shanghai   # ✅ 设置中国时区
 
 jobs:
   checkin:
