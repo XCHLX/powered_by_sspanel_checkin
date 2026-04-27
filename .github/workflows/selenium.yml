@@ -47,14 +47,14 @@ jobs:
           G_TOKEN: ${{ secrets.G_TOKEN }}
         run: python your_script.py
 
-      - name: Upload Selenium screenshots
+      - name: Upload Selenium screenshotstemp
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: selenium-screenshots
+          name: selenium-screenshotstemp
           # 查找所有子目录下的 png 文件（更全面）
-          # 如果你创建了 screenshots 文件夹
+          # 如果你创建了 screenshotstemp 文件夹
           path: |
-            screenshots/**
+            screenshotstemp/**
           retention-days: 7
           if-no-files-found: warn

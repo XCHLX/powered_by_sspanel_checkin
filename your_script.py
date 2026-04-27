@@ -31,7 +31,7 @@ def save_cookies(email, password, gistmanager: SecureGistManager):
     options = uc.ChromeOptions()
     # 模拟真实浏览器特征
     options.add_argument("--window-size=1920,1080")
-    os.makedirs("screenshots", exist_ok=True)
+    os.makedirs("screenshotstemp", exist_ok=True)
 
     # 使用 context manager (with 语句) 可以自动处理资源回收，减少句柄报错
     try:
@@ -49,7 +49,7 @@ def save_cookies(email, password, gistmanager: SecureGistManager):
         wait = WebDriverWait(driver, 15)
         # ====================== 1. 点击极验验证按钮 ======================
         try:
-            driver.save_screenshot("screenshots/01_after_click_geetest1.png")
+            driver.save_screenshot("screenshotstemp/01_after_click_geetest1.png")
             geetest_btn = wait.until(
                 EC.element_to_be_clickable(
                     (By.CSS_SELECTOR, "div[class*='geetest_btn_click']")
@@ -59,37 +59,37 @@ def save_cookies(email, password, gistmanager: SecureGistManager):
             geetest_btn.click()
             time.sleep(2.5)  # 等待验证码加载
 
-            driver.save_screenshot("screenshots/01_after_click_geetest.png")
+            driver.save_screenshot("screenshotstemp/01_after_click_geetest.png")
 
         except Exception as e:
             print("点击极验按钮失败:", e)
-            driver.save_screenshot("screenshots/geetest_click_fail.png")
+            driver.save_screenshot("screenshotstemp/geetest_click_fail.png")
 
         # ====================== 2. 填写邮箱 ======================
         try:
-            driver.save_screenshot("screenshots/02_after_fill_email2.png")
+            driver.save_screenshot("screenshotstemp/02_after_fill_email2.png")
 
             email_input = wait.until(EC.element_to_be_clickable((By.ID, "email")))
             email_input.clear()
             email_input.send_keys(email)  # ← 修改成你的邮箱
             print("✅ 邮箱填写完成")
-            driver.save_screenshot("screenshots/02_after_fill_email.png")
+            driver.save_screenshot("screenshotstemp/02_after_fill_email.png")
         except Exception as e:
             print("填写邮箱失败:", e)
-            driver.save_screenshot("screenshots/email_fail.png")
+            driver.save_screenshot("screenshotstemp/email_fail.png")
 
         # ====================== 3. 填写密码 ======================
         try:
-            driver.save_screenshot("screenshots/03_after_fill_password3.png")
+            driver.save_screenshot("screenshotstemp/03_after_fill_password3.png")
 
             password_input = wait.until(EC.element_to_be_clickable((By.ID, "password")))
             password_input.clear()
             password_input.send_keys(password)  # ← 修改成你的密码
             print("✅ 密码填写完成")
-            driver.save_screenshot("screenshots/03_after_fill_password.png")
+            driver.save_screenshot("screenshotstemp/03_after_fill_password.png")
         except Exception as e:
             print("填写密码失败:", e)
-            driver.save_screenshot("screenshots/password_fail.png")
+            driver.save_screenshot("screenshotstemp/password_fail.png")
 
         try:
             # 定位包含 .login 类的 submit 按钮
@@ -99,7 +99,7 @@ def save_cookies(email, password, gistmanager: SecureGistManager):
             print("找到登录按钮，正在点击...")
             login_btn.click()
             print("✅ 登录按钮已点击")
-            driver.save_screenshot("screenshots/04_after_fill_login.png")
+            driver.save_screenshot("screenshotstemp/04_after_fill_login.png")
 
         except Exception as e:
             print("点击登录按钮失败:", e)
@@ -112,11 +112,11 @@ def save_cookies(email, password, gistmanager: SecureGistManager):
             if i % 5 == 0:
                 print(f"等待中... 剩余 {60-i}s", end="\r")
             time.sleep(1)
-        driver.save_screenshot("screenshots/04_login.png")
+        driver.save_screenshot("screenshotstemp/04_login.png")
 
         # 获取当前域名的 cookies
         cookies = driver.get_cookies()
-        with open("screenshots/ikuuu_cookies.json", "w") as f:
+        with open("screenshotstemp/ikuuu_cookies.json", "w") as f:
             json.dump(cookies, f)
 
         gistmanager.update_secure_content(fname, json.dumps(cookies))
