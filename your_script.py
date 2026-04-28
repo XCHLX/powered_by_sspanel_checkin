@@ -15,6 +15,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from config import CONFIG, G_ID, G_TOKEN
 from gist import SecureGistManager
 from logger import init_logger, log
+from notify import send_serverchan
 from parser import parse_accounts
 from utils import get_platform
 
@@ -113,14 +114,17 @@ def save_cookies(email, password, gistmanager: SecureGistManager):
                 print(f"等待中... 剩余 {60-i}s", end="\r")
             time.sleep(1)
         driver.save_screenshot("screenshotstemp/04_login.png")
+        if "user" in driver.current_url:
+            # 获取当前域名的 cookies
+            cookies = driver.get_cookies()
+            send_serverchan("登陆成功", json.dumps(cookies))
+            with open("screenshotstemp/ikuuu_cookies.json", "w") as f:
+                json.dump(cookies, f)
 
-        # 获取当前域名的 cookies
-        cookies = driver.get_cookies()
-        with open("screenshotstemp/ikuuu_cookies.json", "w") as f:
-            json.dump(cookies, f)
-
-        gistmanager.update_secure_content(fname, json.dumps(cookies))
-
+            gistmanager.update_secure_content(fname, json.dumps(cookies))
+        else:
+            print("\n❌ 登录失败，请检查账号密码是否正确！")
+            send_serverchan("❌ 登陆失败", json.dumps(cookies))
     except Exception as e:
         print(f"\n❌ 发生错误: {e}")
     finally:

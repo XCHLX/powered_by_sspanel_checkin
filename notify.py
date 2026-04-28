@@ -3,12 +3,12 @@ from urllib.parse import quote_plus
 from config import SCKEY, DING_WEBHOOK, DING_SECRET
 
 
-def send_serverchan(text):
+def send_serverchan(title, text):
     if not SCKEY:
         return
 
     url = f"https://sctapi.ftqq.com/{SCKEY}.send"
-    requests.post(url, data={"title": "签到结果", "desp": text})
+    requests.post(url, data={"title": {title}, "desp": text})
 
 
 def send_dingtalk(text):

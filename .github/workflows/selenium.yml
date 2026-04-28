@@ -2,8 +2,8 @@ name: Selenium ikuuu cookies
 
 on:
   schedule:
-    # UTC 22:00 = UTC+8 06:00
-    - cron: '0 20 * * *' # scheduled at 04:00 (UTC+8) everyday
+    # UTC 19:17 = 北京时间 03:17，避开整点高峰以减少延迟
+    - cron: '17 19 * * *' 
   workflow_dispatch:
 
 env:
@@ -23,7 +23,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'   # 或你需要的版本
+          cache: 'pip'
           
+      - name: Random delay (schedule only)
+        if: github.event_name == 'schedule'
+        run: sleep $((RANDOM % 291 + 10))
 
       - name: Install dependencies
         run: |
