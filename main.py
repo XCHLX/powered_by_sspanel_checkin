@@ -69,7 +69,7 @@ def main():
     md = build_md(result)
 
     print(md)
-    send_serverchan(md)
+    send_serverchan("签到结果", md)
     send_dingtalk(md)
 
 
