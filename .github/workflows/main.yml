@@ -3,7 +3,7 @@ name: 'Common Airport Checkin'
 on:
   schedule:
     # UTC 22:00 = UTC+8 06:00
-    - cron: '17 22 * * *' # scheduled at 06:00 (UTC+8) everyday
+    - cron: '01 22 * * *' # scheduled at 06:00 (UTC+8) everyday
   workflow_dispatch:
 
 env:

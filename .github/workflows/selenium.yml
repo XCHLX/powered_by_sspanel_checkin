@@ -3,7 +3,7 @@ name: Selenium ikuuu cookies
 on:
   schedule:
     # UTC 19:17 = 北京时间 03:17，避开整点高峰以减少延迟
-    - cron: '17 19 * * *' 
+    - cron: '01 19 * * *' 
   workflow_dispatch:
 
 env:
