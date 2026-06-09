@@ -34,10 +34,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Setup Chrome
-        uses: browser-actions/setup-chrome@v1   # 推荐 Action，自动安装 Chrome + ChromeDriver
-        with:
-          chrome-version: 147  # 锁定一个稳定的旧版本，或者你尝试 148
+      # - name: Setup Chrome
+      #   uses: browser-actions/setup-chrome@v1   # 推荐 Action，自动安装 Chrome + ChromeDriver
+      #   with:
+      #     chrome-version: 147  # 锁定一个稳定的旧版本，或者你尝试 148
 
       - name: Run Selenium script
         env:
