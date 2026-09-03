@@ -2,46 +2,53 @@ name: Selenium ikuuu cookies
 
 on:
   schedule:
-    # UTC 19:17 = 北京时间 03:17，避开整点高峰以减少延迟
-    - cron: '01 19 * * *' 
+    # UTC 19:01 = 北京时间 03:01
+    # 避开整点高峰以减少延迟
+    - cron: '01 19 * * *'
   workflow_dispatch:
 
 env:
   RUN_ENV: prod
   PYTHONUNBUFFERED: '1'
-  TZ: Asia/Shanghai   # ✅ 设置中国时区
+  TZ: Asia/Shanghai
 
 jobs:
   selenium:
     runs-on: ubuntu-24.04
 
     steps:
+      # Checkout
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
+      # Python
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
-          python-version: '3.12'   # 或你需要的版本
+          python-version: '3.12'
           cache: 'pip'
-          
+
+      # 定时任务随机延迟 10~300 秒
       - name: Random delay (schedule only)
         if: github.event_name == 'schedule'
         run: sleep $((RANDOM % 291 + 10))
 
+      # 安装依赖
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      # 如果需要手动安装 Chrome，可以启用下面的步骤
+      #
       # - name: Setup Chrome
-      #   uses: browser-actions/setup-chrome@v1   # 推荐 Action，自动安装 Chrome + ChromeDriver
+      #   uses: browser-actions/setup-chrome@v1
       #   with:
-      #     chrome-version: 147  # 锁定一个稳定的旧版本，或者你尝试 148
+      #     chrome-version: 147
 
+      # 执行 Selenium
       - name: Run Selenium script
         env:
-          # 如果需要，可以在这里传 secrets
           SOME_SECRET: ${{ secrets.SOME_SECRET }}
           SCKEY: ${{ secrets.SCKEY }}
           CONFIG: ${{ secrets.CONFIG }}
@@ -49,15 +56,15 @@ jobs:
           DINGDINGSECRET: ${{ secrets.DINGDINGSECRET }}
           G_ID: ${{ secrets.G_ID }}
           G_TOKEN: ${{ secrets.G_TOKEN }}
-        run: python your_script.py
+        run: |
+          python your_script.py
 
-      - name: Upload Selenium screenshotstemp
+      # 无论前面成功还是失败，都上传截图
+      - name: Upload Selenium screenshots
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: selenium-screenshotstemp
-          # 查找所有子目录下的 png 文件（更全面）
-          # 如果你创建了 screenshotstemp 文件夹
           path: |
             screenshotstemp/**
           retention-days: 7
